@@ -33,9 +33,9 @@ let elementsArr = [quote, author]
 const url = "https://api.quotable.io/random"
 
 //-------------------------------------------------------------------------->function to refresh page on click
-// function refreshPage(){
-//     window.location.reload();
-    // } 
+function refreshPage(){
+    window.location.reload();
+    } 
 
 let getQuote = ()=>{
     fetch(url)
@@ -47,7 +47,7 @@ let getQuote = ()=>{
 }
 
 window.addEventListener("load", getQuote)
-// document.getElementById('btn').addEventListener("click", getQuote)
+document.getElementById('btn').addEventListener("click", refreshPage)
 
 //set text color
 let r = ranColorNum()
@@ -76,6 +76,9 @@ for(el of elementsArr){
 let num = ranTenNum()
 if(num == 0 || bottomNum < 0){
     num+=1.5
+}
+if(num>5){
+    author.style.fontSize = "3rem"
 }
 // if(bottomNum < 0){
 //     topNum-=((-bottomNum)/h)*100
@@ -125,3 +128,12 @@ let y = toHex(ranColorNum())
 let z = toHex(ranColorNum())
 document.body.style.backgroundColor = '#' + x + y + z;
 }
+
+
+//---------------------------------------track the button to the mouse
+let btn = document.getElementById('btn');
+const onMouseMove = (e) =>{
+  btn.style.left = e.pageX - 50 + 'px';
+  btn.style.top = e.pageY - 50 + 'px';
+}
+document.addEventListener('mousemove', onMouseMove);
