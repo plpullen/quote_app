@@ -1,0 +1,22 @@
+#quote {
+    /* position: absolute; */
+    font-size: 10rem;
+    margin: 0;
+    font-family: 'Kreon', serif;
+}
+
+
+div{
+    position:absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#author{
+    font-size: 1.5rem;
+}
+
+body{
+    margin:0;
+}
