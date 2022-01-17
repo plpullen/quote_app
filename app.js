@@ -9,7 +9,7 @@ function toHex(x){
 }
 
 function ranTenNum(){
-    return Math.floor(Math.random()*10)
+    return Math.floor(Math.random()*9)
 }
 
 const hexObj = {0:'f',1:'e',2:'d',3:'c',4:'b',5:'a',6:'9',7:'8',8:'7',9:'6',a:'5',b:'4',c:'3',d:'2',e:'1',f:'0'}
@@ -24,7 +24,7 @@ function hexInverter(tempHex){
 let w = window.innerWidth;
 let h = window.innerHeight;
 let bottomNum = document.getElementById('content').getBoundingClientRect().bottom
-
+let quoteArr = []
 
 //set quote text
 let quote = document.getElementById("quote")
@@ -41,13 +41,23 @@ let getQuote = ()=>{
     fetch(url)
     .then(data => data.json())
     .then((item) =>{
-    quote.innerText= item.content
+        //set random bolded word
+        quoteArr = item.content.split(' ')
+        // let toBold = Math.floor(Math.random()*quoteArr.length)
+        // quoteArr.splice(toBold,1, '<strong>quoteArr[toBold]</strong>')
+
+    quote.innerText= quoteArr.join(' ')
     author.innerText = item.author
     })
+    return quoteArr
 }
 
 window.addEventListener("load", getQuote)
 document.getElementById('btn').addEventListener("click", refreshPage)
+
+
+
+
 
 //set text color
 let r = ranColorNum()
@@ -74,11 +84,14 @@ for(el of elementsArr){
 
 //set text size
 let num = ranTenNum()
-if(num == 0 || bottomNum < 0){
-    num+=1.5
+if(num < 2 || bottomNum < 0){
+    num+=1
 }
 if(num>5){
     author.style.fontSize = "3rem"
+}
+if(quoteArr.length > 15 && num > 4){
+    num = 4
 }
 // if(bottomNum < 0){
 //     topNum-=((-bottomNum)/h)*100
@@ -88,8 +101,10 @@ quote.style.fontSize = num + 'rem'
 
 
 //set text position - THIS IS PROBLEMATIC - NOT EXACTLY DOING WHAT I NEED -----------------------------<
-let topNum = Number(ranTenNum() +'0')
-let leftNum = Number(ranTenNum() +'0')
+
+// if(num>3){
+// let topNum = Number(ranTenNum() +'0')
+// let leftNum = Number(ranTenNum() +'0')
 // let rightNum = quote.getBoundingClientRect().right
 // let quoteW = quote.getBoundingClientRect().width
 // let quoteH = quote.getBoundingClientRect().height
@@ -107,8 +122,11 @@ let leftNum = Number(ranTenNum() +'0')
 //     leftNum-=((quoteW-rightNum)/w)*100
 // }
 //---------test for positioning the by the div
-document.getElementById('content').style.top = topNum + '%'
-document.getElementById('content').style.top = leftNum + '%'
+// document.getElementById('content').style.top = topNum + '%'
+// document.getElementById('content').style.top = leftNum + '%'
+// document.getElementById('content').style.height = (100-topNum) + 'vh'
+// }
+
 
 // for(el of elementsArr){
 //     el.style.top = topNum + '%'
